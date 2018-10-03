@@ -20,7 +20,7 @@ const writeFile = async (id, token) => {
 	const { data: { comments: { data } } } = response
 
 	const prevId = []
-	const comments = data.reduce((accumulator, currentCmt) => {
+	const cmtFormatted = data.reduce((accumulator, currentCmt) => {
 		if(prevId.includes(currentCmt.id)) return accumulator
 
 		accumulator += `u/${currentCmt.from.name}: ${renderMsg(currentCmt)}\n`
@@ -35,7 +35,7 @@ const writeFile = async (id, token) => {
 		return accumulator
 	}, '')
 
-	fs.writeFile(path.join(__dirname, `${id}.txt`), comments, () => {
+	fs.writeFile(path.join(__dirname, `${id}.txt`), cmtFormatted, () => {
 		console.log('xong')
 	})
 }
